@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .f_detail {
+        text-align: center;
+        margin: left;
+    }
+  </style>
+
+
+</div>
+    <div class="f_detail">
+        <img width="400" height="400" hspace="111" vspace="4" border="2" src="{{ product.image.url }}" >
+        <h4>{{ product.name }}</h4>
+        {% if product.status == 'in stock' %}
+
+        {% endif %}
+    {% if request.user.is_superuser %}
+    <a class="btn btn-blue" href="{% url 'update' product.id %}" role="button">Update</a>
+     <a class="btn btn-red" href="{% url 'delete' product.id %}" role="button">Delete</a>
+   {% endif %}
+    </div>
+
+{% endblock %}

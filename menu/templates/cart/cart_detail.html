@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+{% load static %}
+{% block content %}
+<div class="row">
+    {% for id,product in request.session.cart.items %}
+        <div class="card" style="width: 18rem;">
+          <img src="{{ product.image }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ product.price }}</li>
+            <li class="list-group-item">{{ product.quantity }}</li>
+            <li class="list-group-item">Total: {{ product.price|multiply:product.quantity }}$</li>
+          </ul>
+          <div class="card-body">
+            <a href="{% url 'item_increment' id %}" class="card-link">Plus</a>
+              {% if not product.quantity == 1 %}
+            <a href="{% url 'item_decrement' id %}" class="card-link">Minus</a>
+              {% else %}
+              <a href="{% url 'item_clear' id %}" class="card-link">Remove</a>
+              {% endif %}
+          </div>
+        </div>
+    {% endfor %}
+</div>
+  <a href="{% url 'cart_clear' %}">
+
+</a>
+
+    <a class="btn btn-danger" href="{% url 'order-create' %}">
+    Place order
+    </a>
+{% endblock %}
