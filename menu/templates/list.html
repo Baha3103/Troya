@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} Products {% endblock %}
+{% load static %}
+{% block content %}
+
+     <div class="container card-group">
+        {% for product in products %}
+              <div  class="card">
+                <img  src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">
+                      <a style="" class="nav-link" href="{% url 'detail' product.id %}">{{ product.name }}</a>
+                  </h5>
+                  <p class="nav-link" class="card-text">{{ product.price }}$</p>
+
+                    {% if product.status == 'in stock' %}
+                    <a class="nav-link" href="{% url 'cart_add' product.id %}">
+                    add card
+                    </a>
+                    {% endif %}
+
+                </div>
+              </div>
+        {% endfor %}
+     </div>
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation example">
+      <ul style="margin-left: 600px;" class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="{% url 'list' slug %}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+              {% endif %}
+        <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+        {% if page_obj.has_next %}
+          <li class="page-item">
+          <a class="page-link" href="{% url 'list' slug %}?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+            {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+{% endblock %}
+

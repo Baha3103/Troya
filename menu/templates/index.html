@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="margin-left: 550px;" class="nav-link">Католог товаров</h2>
+     <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for category in categories %}
+          <div class="col">
+            <div class="card">
+                {% if category.image %}
+              <img src="{{ category.image.url }}" class="card-img-top" alt="...">
+                {% else %}
+                <img src="" class="card-img-top" alt="...">
+                {% endif %}
+
+              <div class="card-body">
+                <h5 class="card-title">
+                    <a class="nav-link" href="{% url 'list' category.slug %}">{{ category.title }}</a>
+                </h5>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+     </div>
+{% endblock %}
+
+{% block title %} Shop {% endblock %}
