@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>История заказа {{ request.user }}:</h1>
+<table class="tab">
+  <thead>
+    <tr>
+      <th scope="col">номер заказа:   .</th>
+      <th scope="col">созданный заказ:    .</th>
+      <th scope="col">сумма заказа:    .</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for order in orders %}
+       <tr>
+          <td>
+              <a href="{% url 'order-detail' order.id %}">{{ order.id }}</a>
+          </td>
+           <td>
+                 <a href="{% url 'order-detail' order.id %}">{{ order.created }}</a>
+           </td>
+          <td>
+                <a href="{% url 'order-detail' order.id %}">{{ order.total_cost }}$</a>
+          </td>
+        </tr>
+
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
